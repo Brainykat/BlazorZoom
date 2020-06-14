@@ -1,0 +1,71 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+<div class="card">
+    <div class="card-header">
+        <h4>Enter Zoom Details</h4>
+        <EditForm Model="item" OnValidSubmit="StartVideo">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="col-auto">
+                    <input type="text" @bind-value="item.APIKey" class="form-control" placeholder="API Key">
+                    <small class="text-danger"><ValidationMessage For="@(() => item.APIKey)" /></small>
+                </div>
+                <div class="col-auto">
+                    <input type="text" @bind-value="item.APISecret" class="form-control" placeholder="API Secret">
+                    <small class="text-danger"><ValidationMessage For="@(() => item.APISecret)" /></small>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Id</div>
+                        </div>
+                        <input type="number" @bind-value="@item.MeetingId" class="form-control" placeholder="Meeting Id">
+                        <small class="text-danger"><ValidationMessage For="@(() => item.MeetingId)" /></small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                
+                <div class="col-auto">
+                    <input type="text" @bind-value="item.MeetingPwd" class="form-control" placeholder="Last name">
+                    <small class="text-danger"><ValidationMessage For="@(() => item.MeetingPwd)" /></small>
+                </div>
+                <div class="col-auto">
+                    <select @bind="item.MemberRole" class="form-control">
+                        <option value="@MemberRole.Attendee">Attendee</option>
+                        <option value="@MemberRole.Host">Host</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <input type="text" @bind-value="item.MeetingPwd" class="form-control" placeholder="Meeting Password">
+                    <small class="text-danger"><ValidationMessage For="@(() => item.MeetingPwd)" /></small>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+    <div class="card-body">
+        <div style="overflow: hidden; padding-top: 56.25%; position: relative;" id="zmmtg-root"></div>
+    </div>
+</div>
+
+
+@code {
+    private JoinMeetingDto item = new JoinMeetingDto();
+    public async Task StartVideo()
+    {
+        try
+        {
+            Console.WriteLine("Connecting ....");
+            await JSRuntime.InvokeVoidAsync("join_meeting", item.MeetingId, item.UserName, item.MeetingPwd,
+                item.MemberRole, item.APIKey, item.APISecret);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+    }
+}
