@@ -1,5 +1,5 @@
 # Blazor Wasm Zoom WebSdk integration 
-Blazor Wasm Zoom Meeting integration 
+[Blazor Wasm](https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-3.1) Zoom Meeting integration [Asp.Net core 3.1](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-3.1) [C# 8](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8)
 ## Intro
 Solved the integration problem with the **zmmtg-root** overlaying on application 
 ## Clone
